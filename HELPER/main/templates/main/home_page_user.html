@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{% static 'main/CSS/home_user_page.css' %}">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </header>
+        <main>
+            <h1>Hello, {{ user.username }}</h1>
+            <div class="buttons">
+                <a href="/crypto_manage" class="btn">Crypto</a>
+                <a href="/share_manage" class="btn">Shares</a>
+            </div>
+            <div class="total-assets">
+                <h2>Total Assets: ${{ sum }}</h2>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

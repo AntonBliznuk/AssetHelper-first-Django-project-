@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+.overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    position: relative;
+    color: #fff;
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-btn .btn {
+    background-color: #ff6b6b;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn .btn:hover {
+    background-color: #ff4757;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+main h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.2;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    main h1 {
+        font-size: 3rem;
+    }
+
+    .login-btn .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency</title>
+    <link rel="stylesheet" href="{% static 'main/CSS/crypto_page.css' %}">
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <a href="/" class="back-btn">Back</a>
+        </header>
+        <main>
+            <div class="crypto-container">
+                <h2>Total : <span id="total-amount">{{ sum }}</span> $</h2>
+                <div class="crypto-list">
+                    {% for crypto in assets %}
+                    <div class="crypto-item">
+                        <span class="crypto-ticker">{{ crypto.ticker }}</span>
+                        <span class="crypto-name">{{ crypto.name }}</span>
+                        <span class="crypto-quantity">{{ crypto.amount }}</span>
+                        <span class="crypto-price">{{ crypto.price }}</span>
+                        <span class="crypto-total">{{ crypto.total_value }}</span>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_name" value="{{ crypto.name }}">
+                            <button type="submit" class="btn delete-btn">Delete</button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="add-crypto-form">
+                    <h3>Add New</h3>
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="text" name="ticker" placeholder="Ticker" required>
+                        <input type="number" name="amount" placeholder="Amount" required>
+                        <button type="submit" class="btn">Add</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
