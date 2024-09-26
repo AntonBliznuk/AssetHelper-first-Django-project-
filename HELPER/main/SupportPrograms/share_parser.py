@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def share_rate_parser(name: str):
+def share_rate_parser(name: str, a=1):
     """
     Parses the stock prices from Google search results for a list of stock symbols.
     """

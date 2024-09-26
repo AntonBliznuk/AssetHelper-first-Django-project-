@@ -46,7 +46,7 @@ input {
     padding: 15px;
     font-size: 16px;
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     width: 100%;
     margin-bottom: 20px;
 }
@@ -90,4 +90,10 @@ button.btn:hover {
         font-size: 16px;
         padding: 10px 20px;
     }
+}
+label {
+    color: #000; /* Черный цвет для текста */
+    font-weight: bold; /* Сделать текст жирным, если нужно */
+    display: block;
+    margin-bottom: 5px; /* Отступ под лейблом */
 }

@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def cryptocurrency_rate_parser(name: str):
+def cryptocurrency_rate_parser(name: str, a=1):
 
     try:
         # Send a GET request to the CoinMarketCap page for the given cryptocurrency

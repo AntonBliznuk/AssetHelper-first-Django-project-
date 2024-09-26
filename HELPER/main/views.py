@@ -51,16 +51,31 @@ class BaseAssetPageView(View):
         assets = self.model.objects.filter(owner=owner)
 
         for asset in assets:
-            if (result := self.parser_function(asset.name if hasattr(asset, 'name') else asset.ticker)):
+
+            is_exists = False
+            result = None
+
+            if self.model == models.Crypto:
+                if (result := cryptocurrency_rate_parser(asset.name)):
+                    is_exists = True
+                    result = result
+
+            elif self.model == models.Share:
+                if (result := share_rate_parser(asset.ticker)):
+                    is_exists = True
+                    result = result
+
+            if is_exists:
                 total_sum += result * asset.amount
-                asset.price = result
-                asset.total_value = result * asset.amount
+                asset.price = round(result, 2)
+                asset.total_value = round(result * asset.amount, 2)
 
         return assets, total_sum
 
     def get(self, request):
         if request.user.is_authenticated:
             assets, total_sum = self.calculate_total(request.user)
+
             data = {
                 'assets': assets,
                 'form': self.form_class,
@@ -75,13 +90,22 @@ class BaseAssetPageView(View):
             asset = self.model.objects.filter(owner=request.user, name=request.POST.get('delete_name')).first()
             if asset:
                 asset.delete()
-            return redirect(f'/{self.model.__name__.lower()}_manage/')  # Управление активами
-
+            return redirect(f'/{self.model.__name__.lower()}_manage/')
+        
         form = self.form_class(data=request.POST)
+
         if form.is_valid():
-            asset_name = form.cleaned_data['name']
-            if not self.parser_function(asset_name):
-                return redirect(f'{self.model.__name__.lower()}_page')
+
+            asset_name = None
+
+            if self.model == models.Crypto:
+                asset_name = form.cleaned_data['name']
+
+            elif self.model == models.Share:
+                asset_name = form.cleaned_data['ticker']
+
+            # if not self.parser_function(str(asset_name)):
+            #     return redirect(f'{self.model.__name__.lower()}_page')
 
             asset, created = self.model.objects.get_or_create(
                 owner=request.user,
